@@ -27,7 +27,7 @@ battery2_status
 Added setting to change the regresh rate (In seconds) to the configuration screen.
 
 ### 2023/11/19
-Added support for multiple inverters.
+Added support for multiple inverters. Take note of a change in entity names. Entities are now prefixed with inverter serial numbers.
 
 ### 2023/11/21
 Version: "2.1.3" - Bug Fix: Breaks in graphs are caused by null values. All nulls are converted to zero.
