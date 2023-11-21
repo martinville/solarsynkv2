@@ -46,6 +46,6 @@ After entering all of the required information you can go ahead and start the se
 ![](https://github.com/martinville/solarsynk/blob/main/solarsynkstarted.png)
 
 Once started make sure all is ok by clicking on the "log" tab. Scroll through the log and check that the sensor data was populated correctly.
-Few values will be null if you for instance only have a single string of solar panels. If something went wrong ALL of the sensors will have a "null" value. 
+Few values will be "0" if you for instance only have a single string of solar panels MPPT-2 values will be "0" . If something went wrong ALL of the sensors will have a "0" value. 
 
 
