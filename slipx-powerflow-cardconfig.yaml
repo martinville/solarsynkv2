@@ -1,0 +1,46 @@
+type: custom:sunsynk-power-flow-card
+cardstyle: lite
+show_solar: true
+battery:
+  energy: 0
+  shutdown_soc: 20
+  show_daily: true
+solar:
+  show_daily: true
+  mppts: 2
+load:
+  show_daily: true
+grid:
+  show_daily_buy: true
+  show_daily_sell: false
+  show_nonessential: true
+entities:
+  use_timer_248: switch.sunsynk_toggle_system_timer
+  priority_load_243: switch.sunsynk_toggle_priority_load
+  inverter_voltage_154: sensor.solarsynk_inverter_voltage
+  load_frequency_192: sensor.solarsynk_load_frequency
+  inverter_current_164: sensor.solarsynk_inverter_current
+  inverter_power_175: sensor.solarsynk_inverter_power
+  grid_connected_status_194: binary_sensor.solarsynk_grid_connected_status
+  inverter_status_59: sensor.solarsynk_overall_state
+  day_battery_charge_70: sensor.solarsynk_day_battery_charge
+  day_battery_discharge_71: sensor.solarsynk_day_battery_discharge
+  battery_voltage_183: sensor.solarsynk_battery_voltage
+  battery_soc_184: sensor.solarsynk_battery_soc
+  battery_power_190: sensor.solarsynk_battery_power
+  battery_current_191: sensor.solarsynk_battery_current
+  grid_power_169: sensor.solarsynk_grid_power
+  day_grid_import_76: sensor.solarsynk_day_grid_import
+  day_grid_export_77: sensor.solarsynk_day_grid_export
+  grid_ct_power_172: sensor.solarsynk_grid_power
+  day_load_energy_84: sensor.solarsynk_day_load_energy
+  essential_power: none
+  nonessential_power: none
+  aux_power_166: sensor.sunsynk_aux_power
+  day_pv_energy_108: sensor.solarsynk_day_pv_energy
+  pv1_power_186: sensor.solarsynk_pv1_power
+  pv2_power_187: sensor.solarsynk_pv2_power
+  pv1_voltage_109: sensor.solarsynk_pv1_voltage
+  pv1_current_110: sensor.solarsynk_pv1_current
+  pv2_voltage_111: sensor.solarsynk_pv2_voltage
+  pv2_current_112: sensor.solarsynk_pv2_current
