@@ -32,3 +32,5 @@ Version: "2.1.2" - Added support for multiple inverters. Take note of a change i
 ### 2023/11/21
 Version: "2.1.3" - Bug Fix: Breaks in graphs are caused by null values. All nulls are converted to zero.
 
+### 2023/11/21
+Version: "2.1.4" - Added option to enter a custom Home Assistant port number.
