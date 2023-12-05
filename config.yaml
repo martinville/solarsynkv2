@@ -24,7 +24,7 @@ schema:
   sunsynk_pass: str
   sunsynk_serial: str
   Home_Assistant_IP: str
-  Home_Assistant_IP: int
+  Home_Assistant_PORT: int
   HA_LongLiveToken: str
   Refresh_rate: int
   
