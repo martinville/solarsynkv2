@@ -18,6 +18,7 @@ options:
   Home_Assistant_PORT: 8123
   HA_LongLiveToken: ""
   Refresh_rate: 300
+  HTTP_Connect_Type: HTTP
   
 schema:
   sunsynk_user: str
@@ -27,6 +28,8 @@ schema:
   Home_Assistant_PORT: int
   HA_LongLiveToken: str
   Refresh_rate: int
+  HTTP_Connect_Type: str
+  
   
   
   
