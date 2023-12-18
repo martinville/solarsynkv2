@@ -14,21 +14,21 @@ options:
   sunsynk_user: ""
   sunsynk_pass: ""
   sunsynk_serial: ""
+  HTTP_Connect_Type: HTTP
   Home_Assistant_IP: ""
   Home_Assistant_PORT: 8123
   HA_LongLiveToken: ""
   Refresh_rate: 300
-  HTTP_Connect_Type: HTTP
   
 schema:
   sunsynk_user: str
   sunsynk_pass: str
   sunsynk_serial: str
+  HTTP_Connect_Type: str
   Home_Assistant_IP: str
   Home_Assistant_PORT: int
   HA_LongLiveToken: str
   Refresh_rate: int
-  HTTP_Connect_Type: str
   
   
   
