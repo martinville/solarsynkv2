@@ -16,6 +16,7 @@ HA_LongLiveToken="$(bashio::config 'HA_LongLiveToken')"
 Home_Assistant_IP="$(bashio::config 'Home_Assistant_IP')"
 Home_Assistant_PORT="$(bashio::config 'Home_Assistant_PORT')"
 Refresh_rate="$(bashio::config 'Refresh_rate')"
+HTTP_Connect_Type="$(bashio::config 'HTTP_Connect_Type')"
 
 ServerAPIBearerToken=""
 SolarInputData=""
