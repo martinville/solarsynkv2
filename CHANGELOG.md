@@ -34,3 +34,6 @@ Version: "2.1.3" - Bug Fix: Breaks in graphs are caused by null values. All null
 
 ### 2023/11/21
 Version: "2.1.4" - Added option to enter a custom Home Assistant port number.
+
+### 2023/12/18
+Version: "2.1.5" - Added option to enter either HTTP or HTTPS for the connection type.
