@@ -37,3 +37,6 @@ Version: "2.1.4" - Added option to enter a custom Home Assistant port number.
 
 ### 2023/12/18
 Version: "2.1.5" - Added option to enter either HTTP or HTTPS for the connection type.
+
+### 2024/01/01
+Version: "2.1.6" - Added hostname, port and connect type to log.
