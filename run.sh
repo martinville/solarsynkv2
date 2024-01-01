@@ -194,6 +194,7 @@ echo "overall_state" $overall_state
 
 echo ------------------------------------------------------------------------------
 echo "Updating the following sensor entities"
+echo "Sending to" $Home_Assistant_IP ":" $Home_Assistant_PORT "via" $HTTP_Connect_Type
 echo ------------------------------------------------------------------------------
 # $inverter_serial
 
