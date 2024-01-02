@@ -5,7 +5,7 @@ SolarSynk will fetch solar system data via the internet which was initially post
 Please also note that this add-on only populates sensor values with data. It does not come with any cards to display information.
 
 See full documentation here
-https://github.com/martinville/solarsynk/blob/main/DOCS.md
+https://github.com/martinville/solarsynkv2/blob/main/DOCS.md
 
 ## Getting Started
 
