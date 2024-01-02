@@ -16,7 +16,10 @@ HA_LongLiveToken="$(bashio::config 'HA_LongLiveToken')"
 Home_Assistant_IP="$(bashio::config 'Home_Assistant_IP')"
 Home_Assistant_PORT="$(bashio::config 'Home_Assistant_PORT')"
 Refresh_rate="$(bashio::config 'Refresh_rate')"
-HTTP_Connect_Type="$(bashio::config 'HTTP_Connect_Type')"
+Enable_HTTPS="$(bashio::config 'Enable_HTTPS')"
+Enable_Verbose_Log="$(bashio::config 'Enable_Verbose_Log')"
+
+if [ $Enable_HTTPS == "true" ]; then HTTP_Connect_Type="https"; else HTTP_Connect_Type="http"; fi;
 
 ServerAPIBearerToken=""
 SolarInputData=""
@@ -24,7 +27,8 @@ echo ""
 echo ------------------------------------------------------------------------------
 echo -- SolarSynk - Log
 echo ------------------------------------------------------------------------------
-echo "Setting user parameters."
+echo "Verbose logging is set to:" $Enable_Verbose_Log
+echo "HTTP Connect type:" $HTTP_Connect_Type
 #echo $sunsynk_user
 #echo $sunsynk_pass
 #echo $sunsynk_serial
@@ -32,7 +36,7 @@ echo "Setting user parameters."
 
 echo "Getting bearer token from solar service provider's API."
 ServerAPIBearerToken=$(curl -s -X POST -H "Content-Type: application/json" https://api.sunsynk.net/oauth/token -d '{"areaCode": "sunsynk","client_id": "csp-web","grant_type": "password","password": "'"$sunsynk_pass"'","source": "sunsynk","username": "'"$sunsynk_user"'"}' | jq -r '.data.access_token')
-echo $ServerAPIBearerToken
+#echo $ServerAPIBearerToken
 echo "Refresh rate set to:" $Refresh_rate "seconds."
 echo "Note: Setting the refresh rate lower than the update rate of SunSynk is pointless and will just result in wasted disk space."
 
@@ -84,7 +88,7 @@ echo ---------------------------------------------------------------------------
 # Save Settings https://api.sunsynk.net/api/v1/common/setting/$sunsynk_serial/set
 
 
-echo "Data fetched for serial $inverter_serial, see below data dump. If all values are NULL then something went wrong."
+echo "Data fetched for serial $inverter_serial. If Verbose logging is set to YES it will be dumped below."
 #Total Battery
 battery_capacity=$(jq -r '.data.capacity' batterydata.json); if [ $battery_capacity == "null" ]; then battery_capacity="0"; fi;
 battery_chargevolt=$(jq -r '.data.chargeVolt' batterydata.json); if [ $battery_chargevolt == "null" ]; then battery_chargevolt="0"; fi;
@@ -139,6 +143,10 @@ pv2_power=$(jq -r '.data.pvIV[1].ppv' pvindata.json); if [ $pv2_power == "null" 
 pv2_voltage=$(jq -r '.data.pvIV[1].vpv' pvindata.json); if [ $pv2_voltage == "null" ]; then pv2_voltage="0"; fi;
 overall_state=$(jq -r '.data.runStatus' inverterinfo.json); if [ $overall_state == "null" ]; then overall_state="0"; fi;
 
+
+if [ $Enable_Verbose_Log == "true" ]
+then
+echo "If ALL values are NULL then something went wrong."
 # Dump of all values
 echo "battery_capacity" $battery_capacity
 echo "battery_chargevolt" $battery_chargevolt
@@ -191,10 +199,12 @@ echo "pv2_current" $pv2_current
 echo "pv2_power" $pv2_power
 echo "pv2_voltage" $pv2_voltage
 echo "overall_state" $overall_state
+fi
+
 
 echo ------------------------------------------------------------------------------
-echo "Updating the following sensor entities"
-echo "Sending to" $Home_Assistant_IP ":" $Home_Assistant_PORT "via" $HTTP_Connect_Type
+echo "Attempting to update the following sensor entities"
+echo "Sending to" $HTTP_Connect_Type"://"$Home_Assistant_IP":"$Home_Assistant_PORT
 echo ------------------------------------------------------------------------------
 # $inverter_serial
 
