@@ -19,7 +19,7 @@ Click your profile picture situated in the bottom left of your HA user-interface
 
 ### Add this respository to your Home Assistant add-on store
 From the "Settings" menu item in Home Asstant's UI go to "Add-ons". In the bottom right-hand corner click "ADD-ON STORE". The in the right-hand top corner click the three dots and select "Repositories".
-Paste the following repository link and click add then close https://github.com/martinville/solarsynk
+Paste the following repository link and click add then close https://github.com/martinville/solarsynkv2
 
 ![](https://github.com/martinville/solarsynkv2/blob/main/addrepo.png)
 
