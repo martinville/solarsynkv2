@@ -43,3 +43,6 @@ Version: "2.1.6" - Added hostname, port and connect type to log.
 
 ### 2024/01/02
 Version: "2.1.7" - Simplified log by adding option to show verbose logging. Changed SSL selection with toggle control. Added extra security to hide password and long live token.
+
+### 2024/01/03
+Version: "2.1.8" - Added ability to push inverter settings from homeassistant.
