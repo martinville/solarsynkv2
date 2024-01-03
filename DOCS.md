@@ -33,7 +33,7 @@ Refresh the browser. Right at the bottom you should now see the "SolarSynk" add-
 After installing this add-on make sure you enter all the required information on the configuration page. Note if your intentions are to update a Home Assistant installtion with a different IP than the one where this addon is installed, you need to generate the long live token on the Home Assistant instance where entities will be updated. 
 DO NOT USE localhost or 127.0.0.1 in the IP field, either use the actual IP or hostname. If you implemented an SSL certificate , its mandatory to use the hostname assigned to the certificate and not the IP. 
 
-![](https://github.com/martinville/solarsynk/blob/main/configuration.png)
+![](https://github.com/martinville/solarsynkv2/blob/main/configuration.png)
 
 In case you are unsure what your Sunsynk inverter's serial number is. Log into the synsynk.net portal and copy the serial number from the "Inverter" menu item.
 For multiple inverters seperate the inverter serial numbers with a semi colon ; Example 123456;7890123
