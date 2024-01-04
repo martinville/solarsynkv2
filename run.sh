@@ -145,6 +145,34 @@ pv2_power=$(jq -r '.data.pvIV[1].ppv' pvindata.json); if [ $pv2_power == "null" 
 pv2_voltage=$(jq -r '.data.pvIV[1].vpv' pvindata.json); if [ $pv2_voltage == "null" ]; then pv2_voltage="0"; fi;
 overall_state=$(jq -r '.data.runStatus' inverterinfo.json); if [ $overall_state == "null" ]; then overall_state="0"; fi;
 
+#Settings Sensors
+prog1_time=$(jq -r '.data.sellTime1' settings.json); 
+prog2_time=$(jq -r '.data.sellTime2' settings.json); 
+prog3_time=$(jq -r '.data.sellTime3' settings.json); 
+prog4_time=$(jq -r '.data.sellTime4' settings.json); 
+prog5_time=$(jq -r '.data.sellTime5' settings.json); 
+prog6_time=$(jq -r '.data.sellTime6' settings.json); 
+
+prog1_charge=$(jq -r '.data.time1on' settings.json); 
+prog2_charge=$(jq -r '.data.time2on' settings.json);
+prog3_charge=$(jq -r '.data.time3on' settings.json);
+prog4_charge=$(jq -r '.data.time4on' settings.json);
+prog5_charge=$(jq -r '.data.time5on' settings.json);
+prog6_charge=$(jq -r '.data.time6on' settings.json);
+
+prog1_capacity=$(jq -r '.data.cap1' settings.json); 
+prog2_capacity=$(jq -r '.data.cap2' settings.json); 
+prog3_capacity=$(jq -r '.data.cap3' settings.json); 
+prog4_capacity=$(jq -r '.data.cap4' settings.json); 
+prog5_capacity=$(jq -r '.data.cap5' settings.json); 
+prog6_capacity=$(jq -r '.data.cap6' settings.json); 
+
+battery_shutdown_cap=$(jq -r '.data.batteryShutdownCap' settings.json); 
+use_timer=$(jq -r '.data.peakAndVallery' settings.json); 
+priority_load=$(jq -r '.data.energyMode' settings.json); 
+
+
+
 EntityLogOutput="-o tmpcurllog.json"
 if [ $Enable_Verbose_Log == "true" ]
 then
@@ -202,6 +230,31 @@ echo "pv2_current" $pv2_current
 echo "pv2_power" $pv2_power
 echo "pv2_voltage" $pv2_voltage
 echo "overall_state" $overall_state
+#Settings Sensors
+echo "prog1_time:" $prog1_time
+echo "prog2_time:" $prog2_time
+echo "prog3_time:" $prog3_time
+echo "prog4_time:" $prog4_time
+echo "prog5_time:" $prog5_time
+echo "prog6_time:" $prog6_time
+
+echo "prog1_charge:" $prog1_charge
+echo "prog2_charge:" $prog2_charge
+echo "prog3_charge:" $prog3_charge
+echo "prog4_charge:" $prog4_charge
+echo "prog5_charge:" $prog5_charge
+echo "prog6_charge:" $prog6_charge
+
+echo "prog1_capacity:" $prog1_capacity
+echo "prog2_capacity:" $prog2_capacity
+echo "prog3_capacity:" $prog3_capacity
+echo "prog4_capacity:" $prog4_capacity
+echo "prog5_capacity:" $prog5_capacity
+echo "prog6_capacity:" $prog6_capacity
+
+echo "battery_shutdown_cap:" $battery_shutdown_cap
+echo "use_timer:" $use_timer
+echo "priority_load:" $priority_load
 
 echo ------------------------------------------------------------------------------
 echo "Attempting to update the following sensor entities"
@@ -265,6 +318,34 @@ curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: a
 curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "current", "state_class":"measurement", "unit_of_measurement": "A", "friendly_name": "PV2 Current"}, "state": "'"$pv2_current"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_pv2_current $EntityLogOutput
 curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "power", "state_class":"measurement", "unit_of_measurement": "W", "friendly_name": "PV2 Power"}, "state": "'"$pv2_power"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_pv2_power $EntityLogOutput
 curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "voltage", "state_class":"measurement", "unit_of_measurement": "V", "friendly_name": "PV2 Voltage"}, "state": "'"$pv2_voltage"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_pv2_voltage $EntityLogOutput
+
+
+#Settings Sensors
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog1 Time"}, "state": "'"$prog1_time"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog1_time $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog2 Time"}, "state": "'"$prog2_time"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog2_time $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog3 Time"}, "state": "'"$prog3_time"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog3_time $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog4 Time"}, "state": "'"$prog4_time"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog4_time $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog5 Time"}, "state": "'"$prog5_time"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog5_time $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog6 Time"}, "state": "'"$prog6_time"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog6_time $EntityLogOutput
+
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog1 Charge"}, "state": "'"$prog1_charge"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog1_charge $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog2 Charge"}, "state": "'"$prog2_charge"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog2_charge $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog3 Charge"}, "state": "'"$prog3_charge"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog3_charge $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog4 Charge"}, "state": "'"$prog4_charge"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog4_charge $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog5 Charge"}, "state": "'"$prog5_charge"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog5_charge $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog6 Charge"}, "state": "'"$prog6_charge"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog6_charge $EntityLogOutput
+
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog1 Capacity"}, "state": "'"$prog1_capacity"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog1_capacity $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog2 Capacity"}, "state": "'"$prog2_capacity"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog2_capacity $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog3 Capacity"}, "state": "'"$prog3_capacity"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog3_capacity $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog4 Capacity"}, "state": "'"$prog4_capacity"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog4_capacity $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog5 Capacity"}, "state": "'"$prog5_capacity"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog5_capacity $EntityLogOutput
+
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Prog6 Capacity"}, "state": "'"$prog6_capacity"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_prog6_capacity $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "power_factor", "state_class":"measurement", "unit_of_measurement": "%", "friendly_name": "Battery Shutdown_cap"}, "state": "'"$battery_shutdown_cap"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_battery_shutdown_cap $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "time", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Use Timer"}, "state": "'"$use_timer"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_use_timer $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "", "state_class":"measurement", "unit_of_measurement": "", "friendly_name": "Priority Load"}, "state": "'"$priority_load"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_priority_load $EntityLogOutput
+
 #Other
 curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"unit_of_measurement": "", "friendly_name": "Inverter Overall State"}, "state": "'"$overall_state"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_overall_state $EntityLogOutput
 
