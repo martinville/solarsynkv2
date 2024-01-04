@@ -363,7 +363,7 @@ then
 else
 	InverterSettings=$(curl -s -X GET -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json"  $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/input_text.solarsynk_"$inverter_serial"_inverter_settings | jq -r '.state')
 	if [[ -z $InverterSettings ]]; then
-	  echo "Helper entity input_text.solarsynk_"$inverter_serial"_inverter_settings has no value no inverter setting to change."
+	  echo "Helper entity input_text.solarsynk_"$inverter_serial"_inverter_settings has no value. Therefore no inverter setting will be sent for change."
 	else
 		echo "Updating Helper: input_text.solarsynk_"$inverter_serial"_inverter_settings with:" $InverterSettings
 		curl -s -X POST -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" https://api.sunsynk.net/api/v1/common/setting/$inverter_serial/set -d $InverterSettings | jq -r '.'
