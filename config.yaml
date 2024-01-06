@@ -1,6 +1,6 @@
 name: "SolarSynk"
 description: "Home Assistant add-on for syncing solar/inverter data from SynSynk.net"
-version: "2.1.9"
+version: "2.1.10"
 slug: "solar_synk"
 init: false
 arch:
