@@ -1,0 +1,6 @@
+configuration:
+  sunsynk_user:
+    name: Sunsynk Username
+    description: Enable usage of SSL on the webserver inside the add-on
+
+
