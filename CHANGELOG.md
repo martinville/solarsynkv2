@@ -49,3 +49,6 @@ Version: "2.1.8" - Added ability to push inverter settings from homeassistant.
 
 ### 2024/01/04
 Version: "2.1.9" - Added the following entities from settings: prog1_time, prog2_time, prog3_time, prog4_time, prog5_time, prog6_time, prog1_charge, prog2_charge, prog3_charge, prog4_charge, prog5_charge, prog6_charge, prog1_capacity, prog2_capacity, prog3_capacity, prog4_capacity, prog5_capacity, prog6_capacity, battery_shutdown_cap, use_timer, priority_load
+
+### 2024/01/06
+Version: "2.1.10" - Added translations en.yaml for all user input fields in the configuration.yaml file.
