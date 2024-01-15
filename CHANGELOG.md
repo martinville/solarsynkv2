@@ -52,3 +52,6 @@ Version: "2.1.9" - Added the following entities from settings: prog1_time, prog2
 
 ### 2024/01/06
 Version: "2.1.10" - Added translations en.yaml for all user input fields in the configuration.yaml file.
+
+### 2024/01/15
+Version: "2.1.11" - Added AC and DC temperature entities.
