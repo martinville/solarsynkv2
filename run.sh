@@ -20,6 +20,8 @@ Enable_HTTPS="$(bashio::config 'Enable_HTTPS')"
 Enable_Verbose_Log="$(bashio::config 'Enable_Verbose_Log')"
 Settings_Helper_Entity="$(bashio::config 'Settings_Helper_Entity')"
 
+VarCurrentDate=$(date +%Y-%m-%d)
+
 if [ $Enable_HTTPS == "true" ]; then HTTP_Connect_Type="https"; else HTTP_Connect_Type="http"; fi;
 
 ServerAPIBearerToken=""
@@ -56,6 +58,7 @@ rm -rf griddata.json
 rm -rf loaddata.json
 rm -rf batterydata.json
 rm -rf outputdata.json
+rm -rf dcactemp.json
 rm -rf inverterinfo.json
 
 echo "Please wait while curl is fetching input, grid, load, battery & output data..."
@@ -64,8 +67,12 @@ curl -s -X GET -H "Content-Type: application/json" -H "authorization: Bearer $Se
 curl -s -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" https://api.sunsynk.net/api/v1/inverter/load/$inverter_serial/realtime?sn=$inverter_serial -o "loaddata.json"
 curl -s -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" "https://api.sunsynk.net/api/v1/inverter/battery/$inverter_serial/realtime?sn=$inverter_serial&lan=en" -o "batterydata.json"
 curl -s -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" https://api.sunsynk.net/api/v1/inverter/$inverter_serial/realtime/output -o "outputdata.json"
+curl -s -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" "https://api.sunsynk.net/api/v1/inverter/$inverter_serial/output/day?lan=en&date=$VarCurrentDate&column=dc_temp,igbt_temp" -o "dcactemp.json"
 curl -s -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" https://api.sunsynk.net/api/v1/inverter/$inverter_serial  -o "inverterinfo.json"
 curl -s -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" https://api.sunsynk.net/api/v1/common/setting/$inverter_serial/read  -o "settings.json"
+
+
+
 
 inverterinfo_brand=$(jq -r '.data.brand' inverterinfo.json)
 inverterinfo_status=$(jq -r '.data.status' inverterinfo.json)
@@ -172,6 +179,9 @@ battery_shutdown_cap=$(jq -r '.data.batteryShutdownCap' settings.json);
 use_timer=$(jq -r '.data.peakAndVallery' settings.json); 
 priority_load=$(jq -r '.data.energyMode' settings.json); 
 
+dc_temp=$(jq -r '.data.infos[0].records[-1].value' dcactemp.json)
+ac_temp=$(jq -r '.data.infos[1].records[-1].value' dcactemp.json)
+
 
 
 EntityLogOutput="-o tmpcurllog.json"
@@ -256,6 +266,10 @@ echo "prog6_capacity:" $prog6_capacity
 echo "battery_shutdown_cap:" $battery_shutdown_cap
 echo "use_timer:" $use_timer
 echo "priority_load:" $priority_load
+#Temperature
+echo "dc_temp:" $dc_temp
+echo "ac_temp:" $ac_temp
+
 
 echo ------------------------------------------------------------------------------
 echo "Attempting to update the following sensor entities"
@@ -349,7 +363,8 @@ curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: a
 
 #Other
 curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"unit_of_measurement": "", "friendly_name": "Inverter Overall State"}, "state": "'"$overall_state"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_overall_state $EntityLogOutput
-
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "temperature", "state_class":"measurement", "unit_of_measurement": "°C", "friendly_name": "DC Temp"}, "state": "'"$dc_temp"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_dc_temperature $EntityLogOutput
+curl -s -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "temperature", "state_class":"measurement", "unit_of_measurement": "°C", "friendly_name": "AC Temp"}, "state": "'"$ac_temp"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_ac_temperature $EntityLogOutput
 
 echo "------------------------------------------------------------------------------"
 echo "Reading settings entity -> solarsynk_"$inverter_serial"_inverter_settings"
