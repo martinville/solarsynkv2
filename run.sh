@@ -27,11 +27,13 @@ if [ $Enable_HTTPS == "true" ]; then HTTP_Connect_Type="https"; else HTTP_Connec
 
 ServerAPIBearerToken=""
 SolarInputData=""
+dt=$(date '+%d/%m/%Y %H:%M:%S')
+
 echo ""
 echo ------------------------------------------------------------------------------
 echo -- SolarSynk - Log
 echo ------------------------------------------------------------------------------
-echo "Script execution date & time:" date
+echo "Script execution date & time:" $dt
 echo "Verbose logging is set to:" $Enable_Verbose_Log
 echo "HTTP Connect type:" $HTTP_Connect_Type
 #echo $sunsynk_user
