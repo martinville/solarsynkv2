@@ -32,6 +32,7 @@ echo ---------------------------------------------------------------------------
 echo -- SolarSynk - Log
 echo ------------------------------------------------------------------------------
 echo "Exit on error disabled"
+echo "Script execution date time" date
 echo "Verbose logging is set to:" $Enable_Verbose_Log
 echo "HTTP Connect type:" $HTTP_Connect_Type
 #echo $sunsynk_user
