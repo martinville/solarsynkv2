@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+set +e
 while :
 do
 CONFIG_PATH=/data/options.json
@@ -30,6 +31,7 @@ echo ""
 echo ------------------------------------------------------------------------------
 echo -- SolarSynk - Log
 echo ------------------------------------------------------------------------------
+echo "Exit on error disabled"
 echo "Verbose logging is set to:" $Enable_Verbose_Log
 echo "HTTP Connect type:" $HTTP_Connect_Type
 #echo $sunsynk_user
