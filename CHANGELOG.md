@@ -55,3 +55,6 @@ Version: "2.1.10" - Added translations en.yaml for all user input fields in the 
 
 ### 2024/01/15
 Version: "2.1.11" - Added AC and DC temperature entities.
+
+### 2024/02/12
+Version "2.1.12" - Disabled exit on error in the bash script to prevent it from crashing due to the unavailability of resources. Resources could be either HA's API or even Sunsynk.net's API
