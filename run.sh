@@ -42,8 +42,27 @@ echo "HTTP Connect type:" $HTTP_Connect_Type
 #echo $HA_LongLiveToken
 
 echo "Getting bearer token from solar service provider's API."
-ServerAPIBearerToken=$(curl -s -X POST -H "Content-Type: application/json" https://api.sunsynk.net/oauth/token -d '{"areaCode": "sunsynk","client_id": "csp-web","grant_type": "password","password": "'"$sunsynk_pass"'","source": "sunsynk","username": "'"$sunsynk_user"'"}' | jq -r '.data.access_token')
-#echo "Sunsynk Server API Token:" $ServerAPIBearerToken
+ServerAPIBearerToken=$(curl -k -s -X POST -H "Content-Type: application/json" https://api.sunsynk.net/oauth/token -d '{"areaCode": "sunsynk","client_id": "csp-web","grant_type": "password","password": "'"$sunsynk_pass"'","source": "sunsynk","username": "'"$sunsynk_user"'"}' | jq -r '.data.access_token')
+
+echo "Bearer Token length:" ${#ServerAPIBearerToken}
+
+#BOF Check if Token is valid
+if [  -z "$ServerAPIBearerToken"  ]
+then
+	echo "****Token could not be retrieved due to the following possibilities****"
+	echo "Incorrect setup, please check the configuration tab."
+	echo "Either this HA instance cannot reach Sunsynk.net due to network problems or the Sunsynk server is down."
+	echo "The Sunsynk server admins are rejecting due to too frequent connection requests."
+	echo ""
+	echo "This Script will not continue to run but will continue to loop. No values were updated."
+	echo "Dumping Curl output for more information below."
+	ServerAPIBearerToken=$(curl -v -s -X POST -H "Content-Type: application/json" https://api.sunsynk.net/oauth/token -d '{"areaCode": "sunsynk","client_id": "csp-web","grant_type": "password","password": "'"$sunsynk_pass"'","source": "sunsynk","username": "'"$sunsynk_user"'"}' | jq -r '.')
+	echo $ServerAPIBearerToken
+	
+else
+
+
+echo "Sunsynk Server API Token:" $ServerAPIBearerToken
 
 echo "Refresh rate set to:" $Refresh_rate "seconds."
 echo "Note: Setting the refresh rate lower than the update rate of SunSynk is pointless and will just result in wasted disk space."
@@ -378,7 +397,7 @@ CheckEntity=$(curl -s -X GET -H "Authorization: Bearer $HA_LongLiveToken" -H "Co
 if [ $CheckEntity == "Entity not found." ]
 then
 	echo "Entity does not exist! Manually create it for this inverter using the HA GUI in menu [Settings] -> [Devices & Services] -> [Helpers] tab -> [+ CREATE HELPER]. Choose [Text] and name it [solarsynk_"$inverter_serial"_inverter_settings]"
-	echo "Settings pushback system aborted."
+	echo "Settings pushback system aborted. Note this is not an error, setting up inverter settings push back is optional. It just means you omitted this part of the setup."
 	echo "------------------------------------------------------------------------------"	
 else
 	InverterSettings=$(curl -s -X GET -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json"  $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/input_text.solarsynk_"$inverter_serial"_inverter_settings | jq -r '.state')
@@ -400,6 +419,9 @@ echo "Fetch complete for inverter: $inverter_serial"
 done
 
 
+	
+fi
+#EOF Check if Token is valid
 
 echo "All Done! Waiting " $Refresh_rate " sesonds to rinse and repeat."
 sleep $Refresh_rate
