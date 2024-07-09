@@ -62,8 +62,8 @@ then
 else
 
 
-echo "Sunsynk Server API Token:" $ServerAPIBearerToken
-
+#echo "Sunsynk Server API Token:" $ServerAPIBearerToken
+echo "Sunsynk Server API Token: Hidden for security reasons"
 echo "Refresh rate set to:" $Refresh_rate "seconds."
 echo "Note: Setting the refresh rate lower than the update rate of SunSynk is pointless and will just result in wasted disk space."
 
