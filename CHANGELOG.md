@@ -1,7 +1,6 @@
 
 ### 2024/10/13
-Version "2.1.15" - Corrected battery mappings.
-Added MPPT 3 & 4
+Version "2.1.15" - Added MPPT 3 & 4
 
 ### 2024/04/01
 Version "2.1.14" - Corrected battery mappings.
