@@ -1,3 +1,8 @@
+
+### 2024/10/13
+Version "2.1.15" - Corrected battery mappings.
+Added MPPT 3 & 4
+
 ### 2024/04/01
 Version "2.1.14" - Corrected battery mappings.
 Battery 1 Status was incorrectly mapped defaulting to 0.
