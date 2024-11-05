@@ -171,15 +171,29 @@ grid_power2=$(jq -r '.data.vip[2].power' griddata.json); if [ $grid_power2 == "n
 grid_voltage2=$(jq -r '.data.vip[2].volt' griddata.json); if [ $grid_voltage2 == "null" ]; then grid_voltage2="0"; fi;
 grid_current2=$(jq -r '.data.vip[2].current' griddata.json); if [ $grid_current2 == "null" ]; then grid_current2="0"; fi;
 
-inverter_current=$(jq -r '.data.vip[0].current' outputdata.json); if [ $inverter_current == "null" ]; then inverter_current="0"; fi;
+//Inverter
 inverter_frequency=$(jq -r '.data.fac' outputdata.json); if [ $inverter_frequency == "null" ]; then inverter_frequency="0"; fi;
+
+inverter_current=$(jq -r '.data.vip[0].current' outputdata.json); if [ $inverter_current == "null" ]; then inverter_current="0"; fi;
 inverter_power=$(jq -r '.data.vip[0].power' outputdata.json); if [ $inverter_power == "null" ]; then inverter_power="0"; fi;
 inverter_voltage=$(jq -r '.data.vip[0].volt' outputdata.json); if [ $inverter_voltage == "null" ]; then inverter_voltage="0"; fi;
+
+inverter_current1=$(jq -r '.data.vip[1].current' outputdata.json); if [ $inverter_current1 == "null" ]; then inverter_current1="0"; fi;
+inverter_power1=$(jq -r '.data.vip[1].power' outputdata.json); if [ $inverter_power1 == "null" ]; then inverter_power1="0"; fi;
+inverter_voltage1=$(jq -r '.data.vip[1].volt' outputdata.json); if [ $inverter_voltage1 == "null" ]; then inverter_voltage1="0"; fi;
+
+inverter_current2=$(jq -r '.data.vip[2].current' outputdata.json); if [ $inverter_current2 == "null" ]; then inverter_current2="0"; fi;
+inverter_power2=$(jq -r '.data.vip[2].power' outputdata.json); if [ $inverter_power2 == "null" ]; then inverter_power2="0"; fi;
+inverter_voltage2=$(jq -r '.data.vip[2].volt' outputdata.json); if [ $inverter_voltage2 == "null" ]; then inverter_voltage2="0"; fi;
+
 load_current=$(jq -r '.data.vip[0].current' loaddata.json); if [ $load_current == "null" ]; then load_current="0"; fi;
 load_frequency=$(jq -r '.data.loadFac' loaddata.json); if [ $load_frequency == "null" ]; then load_frequency="0"; fi;
 load_power=$(jq -r '.data.vip[0].power' loaddata.json); if [ $load_power == "null" ]; then load_power="0"; fi;
+
+
 load_totalpower=$(jq -r '.data.totalPower' loaddata.json); if [ $load_totalpower == "null" ]; then load_totalpower="0"; fi;
 load_voltage=$(jq -r '.data.vip[0].volt' loaddata.json); if [ $load_voltage == "null" ]; then load_voltage="0"; fi;
+
 pv1_current=$(jq -r '.data.pvIV[0].ipv' pvindata.json); if [ $pv1_current == "null" ]; then pv1_current="0"; fi;
 pv1_power=$(jq -r '.data.pvIV[0].ppv' pvindata.json); if [ $pv1_power == "null" ]; then pv1_power="0"; fi;
 pv1_voltage=$(jq -r '.data.pvIV[0].vpv' pvindata.json); if [ $pv1_voltage == "null" ]; then pv1_voltage="0"; fi;
@@ -365,6 +379,7 @@ curl -s -k -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type
 # Grid
 curl -s -k -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"unit_of_measurement": "", "friendly_name": "Grid Connection Status"}, "state": "'"$grid_connected_status"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_grid_connected_status $EntityLogOutput
 curl -s -k -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "frequency", "state_class":"measurement", "unit_of_measurement": "Hz", "friendly_name": "Grid Freq"}, "state": "'"$grid_frequency"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_grid_frequency $EntityLogOutput
+
 curl -s -k -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "power", "state_class":"measurement", "unit_of_measurement": "W", "friendly_name": "Grid Power"}, "state": "'"$grid_power"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_grid_power $EntityLogOutput
 curl -s -k -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "voltage", "state_class":"measurement", "unit_of_measurement": "V", "friendly_name": "Grid Voltage"}, "state": "'"$grid_voltage"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_grid_voltage $EntityLogOutput
 curl -s -k -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"device_class": "current", "state_class":"measurement", "unit_of_measurement": "A", "friendly_name": "Grid Current"}, "state": "'"$grid_current"'"}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/sensor.solarsynk_"$inverter_serial"_grid_current $EntityLogOutput
