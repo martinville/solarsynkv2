@@ -283,10 +283,32 @@ echo "grid_frequency" $grid_frequency
 echo "grid_power" $grid_power
 echo "grid_voltage" $grid_voltage
 echo "grid_current" $grid_current
-echo "inverter_current" $inverter_current
+
+echo "grid_power1" $grid_power1
+echo "grid_voltage1" $grid_voltage1
+echo "grid_current1" $grid_current1
+
+echo "grid_power2" $grid_power2
+echo "grid_voltage2" $grid_voltage2
+echo "grid_current2" $grid_current2
+
+
 echo "inverter_frequency" $inverter_frequency
+
 echo "inverter_power" $inverter_power
+echo "inverter_current" $inverter_current
 echo "inverter_voltage" $inverter_voltage
+
+echo "inverter_power1" $inverter_power1
+echo "inverter_voltage1" $inverter_voltage1
+echo "inverter_current1" $inverter_current1
+
+echo "inverter_power2" $inverter_power2
+echo "inverter_voltage2" $inverter_voltage2
+echo "inverter_current2" $inverter_current2
+
+
+
 echo "load_current" $load_current
 echo "load_frequency" $load_frequency
 echo "load_power" $load_power
