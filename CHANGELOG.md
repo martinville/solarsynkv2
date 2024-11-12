@@ -1,5 +1,9 @@
 
 ### 2024/11/06
+Version "2.1.17" - Bug Fix
+Inverter Phases were sending all 3 phases to the same entity.
+
+### 2024/11/06
 Version "2.1.16" - Extended entities to support 3 phase grid / inverter and added 2 extra MPPTs
 The following entities were added.
 Grid Phase - Power, Voltage, Current 
