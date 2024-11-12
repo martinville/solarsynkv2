@@ -1,5 +1,5 @@
 
-### 2024/11/06
+### 2024/11/12
 Version "2.1.17" - Bug Fix
 Inverter Phases were sending all 3 phases to the same entity.
 
