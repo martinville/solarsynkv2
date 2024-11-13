@@ -1,3 +1,9 @@
+### 2024/11/13
+Version "2.1.19" - Added more entities
+Load UPS PowerL1
+Load UPS PowerL2
+Load UPS PowerL3
+Load UPS Total Power
 
 ### 2024/11/13
 Version "2.1.18" - Bug Fix Correcting syntax error.
