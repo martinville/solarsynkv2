@@ -171,7 +171,7 @@ grid_power2=$(jq -r '.data.vip[2].power' griddata.json); if [ $grid_power2 == "n
 grid_voltage2=$(jq -r '.data.vip[2].volt' griddata.json); if [ $grid_voltage2 == "null" ]; then grid_voltage2="0"; fi;
 grid_current2=$(jq -r '.data.vip[2].current' griddata.json); if [ $grid_current2 == "null" ]; then grid_current2="0"; fi;
 
-//Inverter
+#Inverter
 inverter_frequency=$(jq -r '.data.fac' outputdata.json); if [ $inverter_frequency == "null" ]; then inverter_frequency="0"; fi;
 
 inverter_current=$(jq -r '.data.vip[0].current' outputdata.json); if [ $inverter_current == "null" ]; then inverter_current="0"; fi;
