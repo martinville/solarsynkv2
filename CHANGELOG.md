@@ -1,4 +1,8 @@
 ### 2024/11/13
+Version "2.1.20" - Fixed unary operator expected erros
+
+
+### 2024/11/13
 Version "2.1.19" - Added more entities
 Load UPS PowerL1
 Load UPS PowerL2
