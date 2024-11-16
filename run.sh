@@ -157,7 +157,7 @@ day_grid_import=$(jq -r '.data.etodayFrom' griddata.json); if [ $day_grid_import
 day_load_energy=$(jq -r '.data.dailyUsed' loaddata.json); if [ $day_load_energy == "null" ]; then day_load_energy="0"; fi;
 day_pv_energy=$(jq -r '.data.etoday' pvindata.json); if [ $day_pv_energy == "null" ]; then day_pv_energy="0"; fi;
 grid_connected_status=$(jq -r '.data.status' griddata.json); if [ $grid_connected_status == "null" ]; then grid_connected_status="0"; fi;
-grid_frequency=$(jq -r '.data' griddata.json); if [ $grid_frequency == "null" ]; then grid_frequency="0"; fi;
+grid_frequency=$(jq -r '.data.fac' griddata.json); if [ $grid_frequency == "null" ]; then grid_frequency="0"; fi;
 
 grid_power=$(jq -r '.data.vip[0].power' griddata.json); if [ $grid_power == "null" ]; then grid_power="0"; fi;
 grid_voltage=$(jq -r '.data.vip[0].volt' griddata.json); if [ $grid_voltage == "null" ]; then grid_voltage="0"; fi;
@@ -172,7 +172,7 @@ grid_voltage2=$(jq -r '.data.vip[2].volt' griddata.json); if [ $grid_voltage2 ==
 grid_current2=$(jq -r '.data.vip[2].current' griddata.json); if [ $grid_current2 == "null" ]; then grid_current2="0"; fi;
 
 #Inverter
-inverter_frequency=$(jq -r '.data' outputdata.json); if [ $inverter_frequency == "null" ]; then inverter_frequency="0"; fi;
+inverter_frequency=$(jq -r '.data.fac' outputdata.json); if [ $inverter_frequency == "null" ]; then inverter_frequency="0"; fi;
 
 inverter_current=$(jq -r '.data.vip[0].current' outputdata.json); if [ $inverter_current == "null" ]; then inverter_current="0"; fi;
 inverter_power=$(jq -r '.data.vip[0].power' outputdata.json); if [ $inverter_power == "null" ]; then inverter_power="0"; fi;
