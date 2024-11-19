@@ -1,3 +1,0 @@
-curl -s -X POST -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiZDBlYmU1Zjg0NTY0MWNmYjE1YjM1ZjE0MjlmNWVkOSIsImlhdCI6MTY5OTc2NDI0MCwiZXhwIjoyMDE1MTI0MjQwfQ.E0UXYrHbbnNc9-ccCGbdY-IgzwMCAAY6pLXTd0uM-To" -H "Content-Type: application/json" -d '{"state": 1}' http://localhost:8123/api/states/sensor.martinpvpower
-
-
