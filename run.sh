@@ -568,14 +568,12 @@ else
 	curl -s -k -X POST -H "Authorization: Bearer $HA_LongLiveToken" -H "Content-Type: application/json" -d '{"attributes": {"unit_of_measurement": "", "friendly_name": "solarsynk_inverter_settings"}, "state": ""}' $HTTP_Connect_Type://$Home_Assistant_IP:$Home_Assistant_PORT/api/states/input_text.solarsynk_"$inverter_serial"_inverter_settings > /dev/null
 fi
 
-
+fi
+#EOF Curl failure
 
 # EOF Serial Number Loop
 echo "Fetch complete for inverter: $inverter_serial"
 done
-
-fi
-#EOF Curl failure
 	
 fi
 #EOF Check if Token is valid
