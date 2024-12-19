@@ -84,58 +84,57 @@ rm -rf outputdata.json
 rm -rf dcactemp.json
 rm -rf inverterinfo.json
 
-curlError=false
+curlError=0
 echo "Please wait while curl is fetching input, grid, load, battery & output data..."
 curl -s -f -S -k -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" https://api.sunsynk.net/api/v1/inverter/$inverter_serial/realtime/input -o "pvindata.json"
 if [[ $? -ne 0 ]]; then
     echo "Error: Request failed for pvindata.json"
-	curlError=true
+	curlError=1
 fi
 
 curl -s -f -S -k -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" https://api.sunsynk.net/api/v1/inverter/grid/$inverter_serial/realtime?sn=$inverter_serial -o "griddata.json"
 if [[ $? -ne 0 ]]; then
     echo "Error: Request failed for griddata.json"
-	curlError=true
+	curlError=1
 fi
 
 curl -s -f -S -k -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" https://api.sunsynk.net/api/v1/inverter/load/$inverter_serial/realtime?sn=$inverter_serial -o "loaddata.json"
 if [[ $? -ne 0 ]]; then
     echo "Error: Request failed for loaddata.json"
-	curlError=true
+	curlError=1
 fi
 
 curl -s -f -S -k -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" "https://api.sunsynk.net/api/v1/inverter/battery/$inverter_serial/realtime?sn=$inverter_serial&lan=en" -o "batterydata.json"
 if [[ $? -ne 0 ]]; then
     echo "Error: Request failed for batterydata.json"
-	curlError=true
+	curlError=1
 fi
 
 curl -s -f -S -k -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" https://api.sunsynk.net/api/v1/inverter/$inverter_serial/realtime/output -o "outputdata.json"
 if [[ $? -ne 0 ]]; then
     echo "Error: Request failed for outputdata.json"
-	curlError=true
+	curlError=1
 fi
 
 curl -s -f -S -k -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" "https://api.sunsynk.net/api/v1/inverter/$inverter_serial/output/day?lan=en&date=$VarCurrentDate&column=dc_temp,igbt_temp" -o "dcactemp.json"
 if [[ $? -ne 0 ]]; then
     echo "Error: Request failed for dcactemp.json"
-	curlError=true
+	curlError=1
 fi
 
 curl -s -f -S -k -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" https://api.sunsynk.net/api/v1/inverter/$inverter_serial  -o "inverterinfo.json"
 if [[ $? -ne 0 ]]; then
     echo "Error: Request failed for inverterinfo.json"
-	curlError=true
+	curlError=1
 fi
 
 curl -s -f -S -k -X GET -H "Content-Type: application/json" -H "authorization: Bearer $ServerAPIBearerToken" https://api.sunsynk.net/api/v1/common/setting/$inverter_serial/read  -o "settings.json"
 if [[ $? -ne 0 ]]; then
     echo "Error: Request failed for settings.json"
-	curlError=true
+	curlError=1
 fi
 
-if ! curlError
-then
+if [[ $curlError -eq 0 ]]; then
 
 inverterinfo_brand=$(jq -r '.data.brand' inverterinfo.json)
 inverterinfo_status=$(jq -r '.data.status' inverterinfo.json)
