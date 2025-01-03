@@ -186,10 +186,20 @@ inverter_current2=$(jq -r '.data.vip[2].current' outputdata.json); if [ $inverte
 inverter_power2=$(jq -r '.data.vip[2].power' outputdata.json); if [ $inverter_power2 == "null" ]; then inverter_power2="0"; fi;
 inverter_voltage2=$(jq -r '.data.vip[2].volt' outputdata.json); if [ $inverter_voltage2 == "null" ]; then inverter_voltage2="0"; fi;
 
-#Load Data
-load_current=$(jq -r '.data.vip[0].current' loaddata.json); if [ $load_current == "null" ]; then load_current="0"; fi;
+#BOF Load Data
 load_frequency=$(jq -r '.data.loadFac' loaddata.json); if [ $load_frequency == "null" ]; then load_frequency="0"; fi;
+
+load_voltage=$(jq -r '.data.vip[0].volt' loaddata.json); if [ $load_voltage == "null" ]; then load_voltage="0"; fi;
+load_voltage1=$(jq -r '.data.vip[1].volt' loaddata.json); if [ $load_voltage1 == "null" ]; then load_voltage1="0"; fi;
+load_voltage2=$(jq -r '.data.vip[2].volt' loaddata.json); if [ $load_voltage2 == "null" ]; then load_voltage2="0"; fi;
+
+load_current=$(jq -r '.data.vip[0].current' loaddata.json); if [ $load_current == "null" ]; then load_current="0"; fi;
+load_current1=$(jq -r '.data.vip[1].current' loaddata.json); if [ $load_current1 == "null" ]; then load_current1="0"; fi;
+load_current2=$(jq -r '.data.vip[2].current' loaddata.json); if [ $load_current2 == "null" ]; then load_current2="0"; fi;
+
 load_power=$(jq -r '.data.vip[0].power' loaddata.json); if [ $load_power == "null" ]; then load_power="0"; fi;
+load_power1=$(jq -r '.data.vip[1].power' loaddata.json); if [ $load_power1 == "null" ]; then load_power1="0"; fi;
+load_power2=$(jq -r '.data.vip[2].power' loaddata.json); if [ $load_power2 == "null" ]; then load_power2="0"; fi;
 
 load_upsPowerL1=$(jq -r '.data.upsPowerL1' loaddata.json); if [ $load_upsPowerL1 == "null" ]; then load_upsPowerL1="0"; fi;
 load_upsPowerL2=$(jq -r '.data.upsPowerL2' loaddata.json); if [ $load_upsPowerL2 == "null" ]; then load_upsPowerL2="0"; fi;
@@ -197,8 +207,7 @@ load_upsPowerL3=$(jq -r '.data.upsPowerL3' loaddata.json); if [ $load_upsPowerL3
 load_upsPowerTotal=$(jq -r '.data.upsPowerTotal' loaddata.json); if [ $load_upsPowerTotal == "null" ]; then load_upsPowerTotal="0"; fi;
 
 load_totalpower=$(jq -r '.data.totalPower' loaddata.json); if [ $load_totalpower == "null" ]; then load_totalpower="0"; fi;
-load_voltage=$(jq -r '.data.vip[0].volt' loaddata.json); if [ $load_voltage == "null" ]; then load_voltage="0"; fi;
-
+# EOF Load Data
 pv1_current=$(jq -r '.data.pvIV[0].ipv' pvindata.json); if [ $pv1_current == "null" ]; then pv1_current="0"; fi;
 pv1_power=$(jq -r '.data.pvIV[0].ppv' pvindata.json); if [ $pv1_power == "null" ]; then pv1_power="0"; fi;
 pv1_voltage=$(jq -r '.data.pvIV[0].vpv' pvindata.json); if [ $pv1_voltage == "null" ]; then pv1_voltage="0"; fi;
@@ -314,11 +323,20 @@ echo "inverter_current2" $inverter_current2
 
 
 #Load
-echo "load_current" $load_current
 echo "load_frequency" $load_frequency
+
+echo "load_current" $load_current
 echo "load_power" $load_power
-echo "load_totalpower" $load_totalpower
 echo "load_voltage" $load_voltage
+echo "load_current1" $load_current
+echo "load_power1" $load_power
+echo "load_voltage1" $load_voltage
+echo "load_current2" $load_current
+echo "load_power2" $load_power
+echo "load_voltage2" $load_voltage
+
+echo "load_totalpower" $load_totalpower
+
 
 echo "load_upsPowerL1" $load_upsPowerL1
 echo "load_upsPowerL2" $load_upsPowerL2
