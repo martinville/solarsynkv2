@@ -1,3 +1,6 @@
+### 2025/01/03
+Version "2.1.21" - Corrected PV3 and PV4 Voltage, Power & Current mapping.
+
 ### 2024/11/16
 Version "2.1.20" - Fixed unary operator expected erros
 
