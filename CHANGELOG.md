@@ -1,4 +1,7 @@
 ### 2025/01/03
+Version "2.1.22" - Added Phase 2 and 3 for load
+
+### 2025/01/03
 Version "2.1.21" - Corrected PV3 and PV4 Voltage, Power & Current mapping.
 
 ### 2024/11/16
