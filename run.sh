@@ -206,12 +206,12 @@ pv2_current=$(jq -r '.data.pvIV[1].ipv' pvindata.json); if [ $pv2_current == "nu
 pv2_power=$(jq -r '.data.pvIV[1].ppv' pvindata.json); if [ $pv2_power == "null" ]; then pv2_power="0"; fi;
 pv2_voltage=$(jq -r '.data.pvIV[1].vpv' pvindata.json); if [ $pv2_voltage == "null" ]; then pv2_voltage="0"; fi;
 
-pv3_current=$(jq -r '.data.pvIV[0].ipv' pvindata.json); if [ $pv3_current == "null" ]; then pv3_current="0"; fi;
-pv3_power=$(jq -r '.data.pvIV[0].ppv' pvindata.json); if [ $pv3_power == "null" ]; then pv3_power="0"; fi;
-pv3_voltage=$(jq -r '.data.pvIV[0].vpv' pvindata.json); if [ $pv3_voltage == "null" ]; then pv3_voltage="0"; fi;
-pv4_current=$(jq -r '.data.pvIV[1].ipv' pvindata.json); if [ $pv4_current == "null" ]; then pv4_current="0"; fi;
-pv4_power=$(jq -r '.data.pvIV[1].ppv' pvindata.json); if [ $pv4_power == "null" ]; then pv4_power="0"; fi;
-pv4_voltage=$(jq -r '.data.pvIV[1].vpv' pvindata.json); if [ $pv4_voltage == "null" ]; then pv4_voltage="0"; fi;
+pv3_current=$(jq -r '.data.pvIV[2].ipv' pvindata.json); if [ $pv3_current == "null" ]; then pv3_current="0"; fi;
+pv3_power=$(jq -r '.data.pvIV[2].ppv' pvindata.json); if [ $pv3_power == "null" ]; then pv3_power="0"; fi;
+pv3_voltage=$(jq -r '.data.pvIV[2].vpv' pvindata.json); if [ $pv3_voltage == "null" ]; then pv3_voltage="0"; fi;
+pv4_current=$(jq -r '.data.pvIV[3].ipv' pvindata.json); if [ $pv4_current == "null" ]; then pv4_current="0"; fi;
+pv4_power=$(jq -r '.data.pvIV[3].ppv' pvindata.json); if [ $pv4_power == "null" ]; then pv4_power="0"; fi;
+pv4_voltage=$(jq -r '.data.pvIV[3].vpv' pvindata.json); if [ $pv4_voltage == "null" ]; then pv4_voltage="0"; fi;
 
 overall_state=$(jq -r '.data.runStatus' inverterinfo.json); if [ $overall_state == "null" ]; then overall_state="0"; fi;
 
