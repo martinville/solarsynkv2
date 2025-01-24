@@ -160,7 +160,7 @@ battery2_current=$(jq -r '.data.batteryCurrent2' batterydata.json); if [ $batter
 battery2_chargevolt=$(jq -r '.data.chargeVolt2' batterydata.json); if [ $battery2_chargevolt == "null" ]; then battery2_chargevolt="0"; fi;
 battery_dischargevolt2=$(jq -r '.data.dischargeVolt2' batterydata.json); if [ $battery_dischargevolt2 == "null" ]; then battery_dischargevolt2="0"; fi;
 battery2_power=$(jq -r '.data.batteryPower2' batterydata.json); if [ $battery2_power == "null" ]; then battery2_power="0"; fi;
-battery2_soc=$(jq -r '.data.batterySoc2' batterydata.json); if [ $battery_capacity == "null" ]; then battery_capacity="0"; fi;
+battery2_soc=$(jq -r '.data.batterySoc2' batterydata.json); if [ $battery2_soc == "null" ]; then battery2_soc="0"; fi;
 battery2_temperature=$(jq -r '.data.batteryTemp2' batterydata.json); if [ $battery2_temperature == "null" ]; then battery2_temperature="0"; fi;
 battery2_status=$(jq -r '.data.batteryStatus2' batterydata.json); if [ $battery2_status == "null" ]; then battery2_status="0"; fi;
 
