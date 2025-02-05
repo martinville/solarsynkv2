@@ -41,23 +41,51 @@ echo "HTTP Connect type:" $HTTP_Connect_Type
 #echo $sunsynk_serial
 #echo $HA_LongLiveToken
 
+echo "Cleaning up old data."
+rm -rf pvindata.json
+rm -rf griddata.json
+rm -rf loaddata.json
+rm -rf batterydata.json
+rm -rf outputdata.json
+rm -rf dcactemp.json
+rm -rf inverterinfo.json
+rm -rf settings.json
+rm -rf token.json
+
 echo "Getting bearer token from solar service provider's API."
 #ServerAPIBearerToken=$(curl -s -k -X POST -H "Content-Type: application/json" https://api.sunsynk.net/oauth/token -d '{"areaCode": "sunsynk","client_id": "csp-web","grant_type": "password","password": "'"$sunsynk_pass"'","source": "sunsynk","username": "'"$sunsynk_user"'"}' | jq -r '.data.access_token')
 #echo "Bearer Token length:" ${#ServerAPIBearerToken}
 
 while true; do
     # Fetch the token using curl
-   ServerAPIBearerToken=$(curl -s -k -X POST -H "Content-Type: application/json" https://api.sunsynk.net/oauth/token -d '{"areaCode": "sunsynk","client_id": "csp-web","grant_type": "password","password": "'"$sunsynk_pass"'","source": "sunsynk","username": "'"$sunsynk_user"'"}' | jq -r '.data.access_token')
-    # Check if the token length is at least 5 characters
-if [ ${#ServerAPIBearerToken} -ge 300 ]
-then
-	echo "Valid token retrieved."
-	break
-else
-	echo "Invalid token received: Retrying..."
-	ServerAPIBearerToken=$(curl -s -k -X POST -H "Content-Type: application/json" https://api.sunsynk.net/oauth/token -d '{"areaCode": "sunsynk","client_id": "csp-web","grant_type": "password","password": "'"$sunsynk_pass"'","source": "sunsynk","username": "'"$sunsynk_user"'"}' | jq -r '.data.access_token')
+    curl -s -f -S -k -X POST -H "Content-Type: application/json" https://api.sunsynk.net/oauth/token -d '{"areaCode": "sunsynk","client_id": "csp-web","grant_type": "password","password": "'"$sunsynk_pass"'","source": "sunsynk","username": "'"$sunsynk_user"'"}' -o token.json
+    if [[ $? -ne 0 ]]
+    then
+        echo "Error getting token curl exit code " $? ". Retrying after sleep..."
 	sleep 30
-fi
+    else
+        if [ $Enable_Verbose_Log == "true" ]
+        then
+           echo "Raw token data"
+           echo ------------------------------------------------------------------------------
+           echo "token.json"
+           cat token.json
+           echo ------------------------------------------------------------------------------
+        fi
+	
+        ServerAPIBearerToken=$(jq -r '.data.access_token' token.json)
+	ServerAPIBearerTokenSuccess=$(jq -r '.success' token.json)
+        
+        if [ $ServerAPIBearerTokenSuccess == "true" ]
+        then
+    	    echo "Valid token retrieved."
+	    break
+        else
+	    ServerAPIBearerTokenMsg=$(jq -r '.msg' token.json)
+	    echo "Invalid token (" $ServerAPIBearerToken ") received. - " $ServerAPIBearerTokenMsg ". Retrying after a sleep..."
+            sleep 30
+        fi
+    fi
 done
 echo "Bearer Token length:" ${#ServerAPIBearerToken}
 
@@ -90,15 +118,6 @@ do
 
 echo ""
 echo "Fetching data for serial:" $inverter_serial
-echo "Cleaning up old data."
-rm -rf pvindata.json
-rm -rf griddata.json
-rm -rf loaddata.json
-rm -rf batterydata.json
-rm -rf outputdata.json
-rm -rf dcactemp.json
-rm -rf inverterinfo.json
-rm -rf settings.json
 
 curlError=0
 echo "Please wait while curl is fetching input, grid, load, battery & output data..."
