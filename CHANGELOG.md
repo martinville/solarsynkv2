@@ -1,7 +1,19 @@
+
+
 ### 2025/01/24
 Version "2.1.23" - Check for a valid sunsynk token before fetching data.
 
 ### 2025/01/03
+
+### 2025/01/25
+
+Version: "2.2.0" - This version is a fork from the original repository (github.com/martinville/solarsynk2) with the following enhancements:
+
+- Improve error handling
+- Dynamically create Home Assistant entities
+- Follow better bash practices
+- Improve code structure and readability
+- Add better retry mechanisms for API calls
 Version "2.1.22" - Added Phase 2 and 3 for load
 
 ### 2025/01/03
