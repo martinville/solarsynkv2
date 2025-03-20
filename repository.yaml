@@ -2,4 +2,4 @@ name: SunSync
 url: 'https://github.com/jujo1/SunSync'
 maintainer: jujo1
 description: 'Home Assistant add-on for syncing solar/inverter data from SunSynk.net'
-version: '1.0.13'
+version: '1.0.14'

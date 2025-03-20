@@ -4,16 +4,16 @@ configuration:
     description: Enter the username that you use to login to the sunsynk.net portal.
   sunsynk_pass:
     name: Sunsynk Password
-    description: Enter the password that you use to login to the sunsynk.net portal.   
+    description: Enter the password that you use to login to the sunsynk.net portal.
   sunsynk_serial:
     name: Sunsynk Inverter Serial Number
-    description: You can find your inverter serial number under menu "Equipment" -> "Inverter" in the synsynk portal. 
+    description: You can find your inverter serial number under menu "Equipment" -> "Inverter" in the synsynk portal.
   Home_Assistant_IP:
     name: Homeassistant Hostname or IP Address
     description: Homeassistant ip or hostname. Please do not use a loopback address such as localhost, 127.0.0.1. And do not prefix the address with http:// or https://
   Home_Assistant_PORT:
     name: Homeassistant server port number.
-    description: In most cases the port number is 8123. Leave the default as is if you did not change this.  
+    description: In most cases the port number is 8123. Leave the default as is if you did not change this.
   HA_LongLiveToken:
     name: Homeassistant Long Live Token
     description: Generate a long live token from the Homeassistant web-ui in the menu "Your Profile" -> Scroll to the bottom and click "CREATE TOKEN"
