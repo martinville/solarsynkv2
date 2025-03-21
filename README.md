@@ -2,7 +2,7 @@
 And moved to Version 3 -> https://github.com/martinville/solarsynkv3
 
 ## Background
-This Home Assistant integration was originally built using a bash script but has been migrated to a more developer-friendly platform utilizing Python. As a result, upgrading the existing integration is not feasible. Many entity names have changed, which may break existing display cards. The new version introduces more entities and automatically detects inverter modules, including multiple MPPTs and grid phases, eliminating the need for manual configuration.
+This Home Assistant integration was originally based solely on a bash script but has been migrated to a more developer-friendly Python platform. As a result, upgrading the existing integration is not feasible. Many entity names have changed, likely breaking existing display cards. The new version introduces more entities, automatically detects inverter modules (including multiple MPPTs and grid phases), and features improved error handling.
 
 
 ![](https://github.com/martinville/solarsynk_test/blob/main/logo.png)
